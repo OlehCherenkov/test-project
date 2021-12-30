@@ -23,10 +23,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $data = $request->validate([
-            'email' => ['required', 'email', 'string'],
-            'password' => ['required'],
-        ]);
+        $data = $request->validated();
         if(auth('web')->attempt($data)) {
             return redirect(route('home'));
         }
@@ -35,11 +32,7 @@ class AuthController extends Controller
 
     public function registration(Request $request)
     {
-        $data = $request->validate([
-            'name' => ['required', 'string'],
-            'email' => ['required', 'email', 'string', 'unique:users'],
-            'password' => ['required', 'confirmed'],
-        ]);
+        $data = $request->validated();
         $data['password'] = bcrypt($data['password']);
         $user = User::create($data);
         if($user) {
