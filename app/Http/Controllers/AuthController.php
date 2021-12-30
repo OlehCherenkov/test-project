@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ForgotPasswordRequest;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegistrationRequest;
 use App\Jobs\ForgotPasswordJob;
-use App\Mail\ForgotPassword;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -21,7 +20,7 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $data = $request->validated();
         if(auth('web')->attempt($data)) {
@@ -30,7 +29,7 @@ class AuthController extends Controller
         return redirect(route('login'))->withErrors(['email' => 'Пользователь не найден!']);
     }
 
-    public function registration(Request $request)
+    public function registration(RegistrationRequest $request)
     {
         $data = $request->validated();
         $data['password'] = bcrypt($data['password']);
@@ -53,9 +52,7 @@ class AuthController extends Controller
         $password = uniqid();
         $user->password = bcrypt($password);
         $user->save();
-
         dispatch(new ForgotPasswordJob($user, $password));
-
         return redirect(route('home'));
     }
 
