@@ -11,7 +11,7 @@
                 @error('name')
                     <p class="text-red-500">{{ $message }}</p>
                 @enderror
-                <input type="text" name="email" class="w-full h-12 border border-gray-800 rounded px-3 @error('email') border-red-500 @enderror" placeholder="Email" />
+                <input type="email" name="email" class="w-full h-12 border border-gray-800 rounded px-3 @error('email') border-red-500 @enderror" placeholder="Email" />
                 @error('email')
                     <p class="text-red-500">{{ $message }}</p>
                 @enderror

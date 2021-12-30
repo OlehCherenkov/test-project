@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentFormRequest;
 use App\Models\Post;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -15,7 +15,14 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::with('comments.user')->findOrFail($id);
         return view('posts.show', compact('post'));
+    }
+
+    public function comment($id, CommentFormRequest $request)
+    {
+        $post = Post::findOrFail($id);
+        $post->comments()->create($request->validated());
+        return redirect(route('posts.show', $id));
     }
 }

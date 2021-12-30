@@ -6,7 +6,7 @@
             <h1 class="text-3xl font-medium">Вход</h1>
             <form action="{{ route('auth') }}" class="space-y-5 mt-5" method="POST">
                 @csrf
-                <input type="text" name="email" class="w-full h-12 border border-gray-800 rounded px-3 @error('email') border-red-500 @enderror" placeholder="Email" />
+                <input type="email" name="email" class="w-full h-12 border border-gray-800 rounded px-3 @error('email') border-red-500 @enderror" placeholder="Email" />
                 @error('name')
                     <p class="text-red-500">{{ $message }}</p>
                 @enderror
@@ -15,7 +15,7 @@
                     <p class="text-red-500">{{ $message }}</p>
                 @enderror
                 <div>
-                    <a href="#" class="font-medium text-blue-900 hover:bg-blue-300 rounded-md p-2">Забыли пароль?</a>
+                    <a href="{{ route('forgot') }}" class="font-medium text-blue-900 hover:bg-blue-300 rounded-md p-2">Забыли пароль?</a>
                 </div>
                 <div>
                     <a href="{{ route('registration') }}" class="font-medium text-blue-900 hover:bg-blue-300 rounded-md p-2">Регистрация</a>
