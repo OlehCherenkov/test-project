@@ -7,7 +7,7 @@
             <form action="{{ route('auth') }}" class="space-y-5 mt-5" method="POST">
                 @csrf
                 <input type="email" name="email" class="w-full h-12 border border-gray-800 rounded px-3 @error('email') border-red-500 @enderror" placeholder="Email" />
-                @error('name')
+                @error('email')
                     <p class="text-red-500">{{ $message }}</p>
                 @enderror
                 <input type="password" name="password" class="w-full h-12 border border-gray-800 rounded px-3 @error('password') border-red-500 @enderror" placeholder="Пароль" />
